@@ -21,7 +21,7 @@
   let element;
 
   $: isFocused, onFocusSelf();
-  $: correct = checkCleanLetter(answer, value);
+  $: correct = answer === value;
   $: showCheck = isChecking && value;
 
   function checkCleanLetter(checkingLetter, answerLetter) {
@@ -106,8 +106,9 @@
     const isKeyInAlphabet = /^[a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ']$/.test(
       e.key
     );
+    const key = e.key.toUpperCase();
     if (isKeyInAlphabet) {
-      onCellUpdate(index, e.key.toUpperCase());
+      onCellUpdate(index, checkCleanLetter(key, answer) ? answer : key);
       return;
     }
 
