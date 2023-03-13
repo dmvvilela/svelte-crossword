@@ -21,8 +21,55 @@
   let element;
 
   $: isFocused, onFocusSelf();
-  $: correct = answer === value;
+  $: correct = checkCleanLetter(answer, value);
   $: showCheck = isChecking && value;
+
+  function checkCleanLetter(checkingLetter, answerLetter) {
+    let cleanedLetter = answerLetter;
+
+    switch (answerLetter) {
+      case "Ç":
+        cleanedLetter = "C";
+        break;
+      case "Á":
+      case "À":
+      case "Â":
+      case "Ã":
+      case "Ä":
+        cleanedLetter = "A";
+        break;
+      case "É":
+      case "È":
+      case "Ê":
+        cleanedLetter = "E";
+        break;
+      case "Í":
+      case "Ì":
+      case "Î":
+        cleanedLetter = "I";
+        break;
+      case "Ó":
+      case "Ò":
+      case "Ô":
+      case "Õ":
+      case "Ö":
+        cleanedLetter = "O";
+        break;
+      case "Ú":
+      case "Ù":
+      case "Ü":
+      case "Û":
+        cleanedLetter = "U";
+        break;
+      case "Ñ":
+        cleanedLetter = "N";
+        break;
+      default:
+        break;
+    }
+
+    if (cleanedLetter === checkingLetter) return true;
+  }
 
   function onFocusSelf() {
     if (!element) return;

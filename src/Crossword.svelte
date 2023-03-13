@@ -132,7 +132,7 @@
 </script>
 
 {#if validated}
-  <article
+  <div
     class="svelte-crossword"
     bind:offsetWidth="{width}"
     style="{inlineStyles}"
@@ -181,11 +181,11 @@
         </slot>
       </CompletedMessage>
     {/if}
-  </article>
+  </div>
 {/if}
 
 <style>
-  article {
+  .svelte-crossword {
     position: relative;
     background-color: transparent;
     font-size: 16px;
