@@ -56,8 +56,6 @@
   function onCellUpdate(index, newValue, diff = 1, doReplaceFilledCells) {
     doReplaceFilledCells = doReplaceFilledCells || !!cells[index].value;
 
-    console.log(newValue);
-
     const dimension = focusedDirection == "across" ? "x" : "y";
     const clueIndex = cells[index].clueNumbers[focusedDirection];
     const cellsInClue = cells.filter(

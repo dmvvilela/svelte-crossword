@@ -21,52 +21,8 @@
   let element;
 
   $: isFocused, onFocusSelf();
-  $: correct = checkCleanLetter(answer, value);
+  $: correct = answer === value;
   $: showCheck = isChecking && value;
-
-  function checkCleanLetter(checkingLetter, answerLetter) {
-    let cleanedLetter = answerLetter;
-
-    switch (answerLetter) {
-      case "ç":
-        cleanedLetter = "c";
-        break;
-      case "á":
-      case "à":
-      case "â":
-      case "ã":
-      case "ä":
-        cleanedLetter = "a";
-        break;
-      case "é":
-      case "è":
-      case "ê":
-        cleanedLetter = "e";
-        break;
-      case "í":
-      case "ì":
-      case "î":
-        cleanedLetter = "i";
-        break;
-      case "ó":
-      case "ò":
-      case "ô":
-      case "õ":
-      case "ö":
-        cleanedLetter = "o";
-        break;
-      case "ú":
-      case "ù":
-      case "ü":
-      case "û":
-        cleanedLetter = "u";
-        break;
-      default:
-        break;
-    }
-
-    if (cleanedLetter === checkingLetter) return true;
-  }
 
   function onFocusSelf() {
     if (!element) return;
@@ -100,7 +56,9 @@
       return;
     }
 
-    const isKeyInAlphabet = /^[a-zA-Z()]$/.test(e.key);
+    const isKeyInAlphabet = /^[a-zA-ZáàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ']$/.test(
+      e.key
+    );
     if (isKeyInAlphabet) {
       onCellUpdate(index, e.key.toUpperCase());
       return;
