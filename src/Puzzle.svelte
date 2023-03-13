@@ -56,6 +56,8 @@
   function onCellUpdate(index, newValue, diff = 1, doReplaceFilledCells) {
     doReplaceFilledCells = doReplaceFilledCells || !!cells[index].value;
 
+    console.log(newValue);
+
     const dimension = focusedDirection == "across" ? "x" : "y";
     const clueIndex = cells[index].clueNumbers[focusedDirection];
     const cellsInClue = cells.filter(
@@ -101,10 +103,10 @@
       onFlipDirection();
     } else {
       focusedCellIndex = index;
-      
+
       if (!cells[focusedCellIndex].clueNumbers[focusedDirection]) {
         const newDirection = focusedDirection === "across" ? "down" : "across";
-        focusedDirection = newDirection
+        focusedDirection = newDirection;
       }
 
       focusedCellIndexHistory = [
@@ -193,9 +195,10 @@
 
 <section
   class="puzzle"
-  class:stacked
+  class:stacked="{stacked}"
   class:is-loaded="{isLoaded}"
-  bind:this="{element}">
+  bind:this="{element}"
+>
   <svg viewBox="0 0 {w} {h}">
     {#each cells as { x, y, value, answer, index, number, custom }}
       <Cell
@@ -206,17 +209,21 @@
         answer="{answer}"
         number="{number}"
         custom="{custom}"
-        changeDelay="{isRevealing ? (revealDuration / cells.length) * index : 0}"
+        changeDelay="{isRevealing
+          ? (revealDuration / cells.length) * index
+          : 0}"
         isRevealing="{isRevealing}"
         isChecking="{isChecking}"
         isFocused="{focusedCellIndex == index && !isDisableHighlight}"
-        isSecondarilyFocused="{secondarilyFocusedCells.includes(index) && !isDisableHighlight}"
+        isSecondarilyFocused="{secondarilyFocusedCells.includes(index) &&
+          !isDisableHighlight}"
         onFocusCell="{onFocusCell}"
         onCellUpdate="{onCellUpdate}"
         onFocusClueDiff="{onFocusClueDiff}"
         onMoveFocus="{onMoveFocus}"
         onFlipDirection="{onFlipDirection}"
-        onHistoricalChange="{onHistoricalChange}" />
+        onHistoricalChange="{onHistoricalChange}"
+      />
     {/each}
   </svg>
 </section>
@@ -226,7 +233,8 @@
     <Keyboard
       layout="crossword"
       style="{keyboardStyle}"
-      on:keydown="{onKeydown}" />
+      on:keydown="{onKeydown}"
+    />
   </div>
 {/if}
 

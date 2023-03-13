@@ -21,8 +21,52 @@
   let element;
 
   $: isFocused, onFocusSelf();
-  $: correct = answer === value;
+  $: correct = checkCleanLetter(answer, value);
   $: showCheck = isChecking && value;
+
+  function checkCleanLetter(checkingLetter, answerLetter) {
+    let cleanedLetter = answerLetter;
+
+    switch (answerLetter) {
+      case "ç":
+        cleanedLetter = "c";
+        break;
+      case "á":
+      case "à":
+      case "â":
+      case "ã":
+      case "ä":
+        cleanedLetter = "a";
+        break;
+      case "é":
+      case "è":
+      case "ê":
+        cleanedLetter = "e";
+        break;
+      case "í":
+      case "ì":
+      case "î":
+        cleanedLetter = "i";
+        break;
+      case "ó":
+      case "ò":
+      case "ô":
+      case "õ":
+      case "ö":
+        cleanedLetter = "o";
+        break;
+      case "ú":
+      case "ù":
+      case "ü":
+      case "û":
+        cleanedLetter = "u";
+        break;
+      default:
+        break;
+    }
+
+    if (cleanedLetter === checkingLetter) return true;
+  }
 
   function onFocusSelf() {
     if (!element) return;
@@ -102,7 +146,8 @@
   tabIndex="0"
   on:click="{onClick}"
   on:keydown="{onKeydown}"
-  bind:this="{element}">
+  bind:this="{element}"
+>
   <rect width="1" height="1"></rect>
 
   {#if showCheck && !correct}
@@ -111,11 +156,16 @@
 
   {#if value}
     <text
-      transition:pop="{{ y: 5, delay: changeDelay, duration: isRevealing ? 250 : 0 }}"
+      transition:pop="{{
+        y: 5,
+        delay: changeDelay,
+        duration: isRevealing ? 250 : 0,
+      }}"
       class="value"
       x="0.5"
       y="0.9"
-      text-anchor="middle">
+      text-anchor="middle"
+    >
       {value}
     </text>
   {/if}

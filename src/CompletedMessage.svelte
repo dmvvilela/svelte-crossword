@@ -14,7 +14,7 @@
         <slot />
       </div>
 
-      <button on:click="{() => (isOpen = false)}">View puzzle</button>
+      <button class="button" on:click="{() => (isOpen = false)}">Voltar</button>
     </div>
 
     {#if showConfetti}
@@ -23,10 +23,10 @@
       </div>
     {/if}
   </div>
-  <div
+  <button
     class="curtain"
     transition:fade="{{ duration: 250 }}"
-    on:click="{() => (isOpen = false)}"></div>
+    on:click="{() => (isOpen = false)}"></button>
 {/if}
 
 <style>
@@ -54,9 +54,8 @@
     z-index: 1;
   }
 
-  button {
+  .button {
     cursor: pointer;
-    margin-left: 1em;
     font-size: 1em;
     font-family: var(--font);
     background-color: var(--accent-color);
@@ -68,7 +67,7 @@
     transition: background-color 150ms;
   }
 
-  button:hover {
+  .button:hover {
     background-color: var(--secondary-highlight-color);
   }
 

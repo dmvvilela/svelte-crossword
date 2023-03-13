@@ -9,6 +9,7 @@
   import validateClues from "./helpers/validateClues.js";
   import { fromPairs } from "./helpers/utils.js";
   import themeStyles from "./helpers/themeStyles.js";
+  import { createEventDispatcher } from "svelte";
 
   export let data = [];
   export let actions = ["clear", "reveal", "check"];
@@ -19,7 +20,7 @@
   export let disableHighlight = false;
   export let showCompleteMessage = true;
   export let showConfetti = true;
-  export let showKeyboard;
+  export let showKeyboard = false;
   export let keyboardStyle = "outline";
 
   let width = 0;
@@ -36,6 +37,8 @@
   let clues = [];
   let cells = [];
 
+  const dispatch = createEventDispatcher();
+
   const onDataUpdate = () => {
     originalClues = createClues(data);
     validated = validateClues(originalClues);
@@ -50,6 +53,7 @@
   $: percentCorrect =
     cells.filter((d) => d.answer === d.value).length / cells.length;
   $: isComplete = percentCorrect == 1;
+  $: isComplete, dispatch("completed");
   $: isDisableHighlight = isComplete && disableHighlight;
   $: cells, (clues = checkClues());
   $: cells, (revealed = !clues.filter((d) => !d.isCorrect).length);
@@ -131,25 +135,28 @@
   <article
     class="svelte-crossword"
     bind:offsetWidth="{width}"
-    style="{inlineStyles}">
+    style="{inlineStyles}"
+  >
     <slot
       name="toolbar"
       onClear="{onClear}"
       onReveal="{onReveal}"
-      onCheck="{onCheck}">
+      onCheck="{onCheck}"
+    >
       <Toolbar actions="{actions}" on:event="{onToolbarEvent}" />
     </slot>
 
-    <div class="play" class:stacked class:is-loaded="{isLoaded}">
+    <div class="play" class:stacked="{stacked}" class:is-loaded="{isLoaded}">
       <Clues
         clues="{clues}"
         cellIndexMap="{cellIndexMap}"
         stacked="{stacked}"
         isDisableHighlight="{isDisableHighlight}"
         isLoaded="{isLoaded}"
-        bind:focusedCellIndex
-        bind:focusedCell
-        bind:focusedDirection />
+        bind:focusedCellIndex="{focusedCellIndex}"
+        bind:focusedCell="{focusedCell}"
+        bind:focusedDirection="{focusedDirection}"
+      />
       <Puzzle
         clues="{clues}"
         focusedCell="{focusedCell}"
@@ -161,9 +168,10 @@
         stacked="{stacked}"
         isLoaded="{isLoaded}"
         keyboardStyle="{keyboardStyle}"
-        bind:cells
-        bind:focusedCellIndex
-        bind:focusedDirection />
+        bind:cells="{cells}"
+        bind:focusedCellIndex="{focusedCellIndex}"
+        bind:focusedDirection="{focusedDirection}"
+      />
     </div>
 
     {#if isComplete && !isRevealing && showCompleteMessage}

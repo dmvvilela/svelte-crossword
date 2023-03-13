@@ -3,7 +3,7 @@
   const dispatch = createEventDispatcher();
 
   export let currentClue = {};
-  $: clue = currentClue["clue"];
+  $: clue = currentClue["clue"] || "";
   $: custom = currentClue["custom"] || "";
 </script>
 
@@ -18,7 +18,8 @@
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="feather feather-chevron-left">
+      class="feather feather-chevron-left"
+    >
       <polyline points="15 18 9 12 15 6"></polyline>
     </svg>
   </button>
@@ -33,7 +34,8 @@
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="feather feather-chevron-right">
+      class="feather feather-chevron-right"
+    >
       <polyline points="9 18 15 12 9 6"></polyline>
     </svg>
   </button>
