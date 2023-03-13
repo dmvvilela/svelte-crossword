@@ -41,12 +41,17 @@
     .map((_, i) => [pickFrom(elementOptions), pickFrom(colors), Math.random()]);
 </script>
 
-<svg class="confetti" viewBox="-10 -10 10 10">
+<svg class="crosswords-confetti" viewBox="-10 -10 10 10">
   {#each allElements as [element, color, scale], i}
     <g style="transform: scale({scale})">
       <g
         fill="{color}"
-        style="{[`--rotation: ${Math.random() * 360}deg`, `animation-delay: ${quadIn(i / numberOfElements)}s`, `animation-duration: ${durationInSeconds * randomNumber(0.7, 1)}s`].join(';')}">
+        style="{[
+          `--rotation: ${Math.random() * 360}deg`,
+          `animation-delay: ${quadIn(i / numberOfElements)}s`,
+          `animation-duration: ${durationInSeconds * randomNumber(0.7, 1)}s`,
+        ].join(';')}"
+      >
         {@html element}
       </g>
     </g>
@@ -54,7 +59,7 @@
 </svg>
 
 <style>
-  .confetti {
+  .crosswords-confetti {
     width: 2em;
     position: absolute;
     stroke-linecap: round;

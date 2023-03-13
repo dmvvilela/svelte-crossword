@@ -53,7 +53,7 @@
   $: percentCorrect =
     cells.filter((d) => d.answer === d.value).length / cells.length;
   $: isComplete = percentCorrect == 1;
-  $: isComplete, dispatch("completed");
+  $: isComplete, dispatch("completed", { isComplete });
   $: isDisableHighlight = isComplete && disableHighlight;
   $: cells, (clues = checkClues());
   $: cells, (revealed = !clues.filter((d) => !d.isCorrect).length);
