@@ -14,7 +14,7 @@
         <slot />
       </div>
 
-      <button class="button" on:click="{() => (isOpen = false)}">Voltar</button>
+      <button class="button" on:click="{() => (isOpen = false)}">Back</button>
     </div>
 
     {#if showConfetti}
