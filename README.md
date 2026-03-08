@@ -15,10 +15,19 @@ By [Amelia Wattenberger](https://twitter.com/wattenberger) and [Russell Samora](
 - Preset style themes with customization
 - Puzzle validation
 - Custom class names for cells and clues
+- Accent character support (French, Spanish, Portuguese)
+
+## Compatibility
+
+- Svelte 3.29+ and Svelte 4.x
 
 ## Installation
 
-`npm install svelte-crossword`
+```bash
+pnpm install svelte-crossword
+# or
+npm install svelte-crossword
+```
 
 ## Usage
 
@@ -162,9 +171,17 @@ You can provide more fine-grained control over the toolbar and completion messag
 
 ## Development
 
-```
+```bash
 cd example
-npm run dev
+pnpm install
+pnpm run dev
+```
+
+## Testing
+
+```bash
+pnpm test          # run tests once
+pnpm test:watch    # run tests in watch mode
 ```
 
 ## Notes

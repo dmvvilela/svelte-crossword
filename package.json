@@ -1,6 +1,6 @@
 {
 	"name": "svelte-crossword",
-	"version": "0.3.4",
+	"version": "0.4.0",
 	"description": "Crossword component for Svelte",
 	"svelte": "src/Crossword.svelte",
 	"scripts": {
