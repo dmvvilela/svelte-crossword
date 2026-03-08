@@ -3,12 +3,14 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import json from "@rollup/plugin-json";
+import css from 'rollup-plugin-css-only';
+import { spawn } from 'child_process';
 
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
 	let server;
-	
+
 	function toExit() {
 		if (server) server.kill(0);
 	}
@@ -16,7 +18,7 @@ function serve() {
 	return {
 		writeBundle() {
 			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+			server = spawn('npm', ['run', 'start', '--', '--dev'], {
 				stdio: ['ignore', 'inherit', 'inherit'],
 				shell: true
 			});
@@ -37,12 +39,12 @@ export default {
 	},
 	plugins: [
 		svelte({
-			dev: !production,
-			hydratable: true,
-			css: css => {
-				css.write('bundle.css');
-			}
+			compilerOptions: {
+				dev: !production,
+				hydratable: true,
+			},
 		}),
+		css({ output: 'bundle.css' }),
 		resolve({
 			browser: true,
 			dedupe: ['svelte']

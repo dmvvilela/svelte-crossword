@@ -68,7 +68,7 @@
         break;
     }
 
-    if (cleanedLetter === checkingLetter) return true;
+    return cleanedLetter === checkingLetter;
   }
 
   function onFocusSelf() {
@@ -149,7 +149,8 @@
   class:is-correct="{showCheck && correct}"
   class:is-incorrect="{showCheck && !correct}"
   transform="{`translate(${x}, ${y})`}"
-  tabIndex="0"
+  role="button"
+  tabindex="0"
   on:click="{onClick}"
   on:keydown="{onKeydown}"
   bind:this="{element}"
