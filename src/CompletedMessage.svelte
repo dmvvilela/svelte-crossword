@@ -8,7 +8,7 @@
 </script>
 
 {#if isOpen}
-  <div class="completed" transition:fade="{{ y: 20 }}">
+  <div class="completed" transition:fade>
     <div class="content">
       <div class="message">
         <slot />

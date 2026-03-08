@@ -12,7 +12,9 @@ export default {
   },
   plugins: [
     svelte({
-      generate: "ssr"
+      compilerOptions: {
+        generate: "ssr",
+      },
     }),
     resolve({
       browser: true,

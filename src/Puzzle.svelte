@@ -158,7 +158,6 @@
 
   function onMoveFocus(direction, diff) {
     if (focusedDirection != direction) {
-      const dimension = direction == "across" ? "x" : "y";
       focusedDirection = direction;
     } else {
       const nextCell = getCellAfterDiff({
