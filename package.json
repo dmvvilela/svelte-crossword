@@ -3,6 +3,10 @@
 	"version": "0.3.4",
 	"description": "Crossword component for Svelte",
 	"svelte": "src/Crossword.svelte",
+	"scripts": {
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/russellsamora/svelte-crossword.git"
@@ -23,5 +27,18 @@
 	},
 	"dependencies": {
 		"svelte-keyboard": "^0.5.5"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
+	},
+	"devDependencies": {
+		"@sveltejs/vite-plugin-svelte": "^3.1.2",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/svelte": "^4.2.3",
+		"jsdom": "^28.1.0",
+		"vite": "^5.4.21",
+		"vitest": "^1.6.1"
 	}
 }
